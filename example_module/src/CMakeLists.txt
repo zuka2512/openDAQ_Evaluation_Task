@@ -5,11 +5,13 @@ set(SRC_Include common.h
                 module_dll.h
                 example_module.h
                 example_fb.h
+                iir_filter_fb.h
 )
 
 set(SRC_Srcs module_dll.cpp
              example_module.cpp
              example_fb.cpp
+             iir_filter_fb.cpp
 )
 
 prepend_include(${TARGET_FOLDER_NAME} SRC_Include)
@@ -17,9 +19,11 @@ prepend_include(${TARGET_FOLDER_NAME} SRC_Include)
 source_group("module" FILES ${MODULE_HEADERS_DIR}/example_module.h
                             ${MODULE_HEADERS_DIR}/example_fb.h
                             ${MODULE_HEADERS_DIR}/module_dll.h
+                            ${MODULE_HEADERS_DIR}/iir_filter_fb.h
                             module_dll.cpp
                             example_module.cpp
                             example_fb.cpp
+                            iir_filter_fb.cpp
 )
 
 

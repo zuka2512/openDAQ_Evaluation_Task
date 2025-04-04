@@ -20,8 +20,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 add_definitions(-DFMT_HEADER_ONLY)
 
-option(OPENDAQ_FB_EXAMPLE_ENABLE_APP "Enable building example function block application" OFF)
-option(EXAMPLE_MODULE_ENABLE_TESTS "Enable building of test suite for the example function block module" OFF)
+option(OPENDAQ_FB_EXAMPLE_ENABLE_APP "Enable building example function block application" ON)
+option(EXAMPLE_MODULE_ENABLE_TESTS "Enable building of test suite for the example function block module" ON)
 
 include(CommonUtils)
 setup_repo(${REPO_OPTION_PREFIX})

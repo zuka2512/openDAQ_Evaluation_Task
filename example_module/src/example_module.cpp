@@ -1,8 +1,9 @@
 #include <coretypes/version_info_factory.h>
-#include <opendaq/custom_log.h>
 #include <example_module/example_fb.h>
 #include <example_module/example_module.h>
 #include <example_module/version.h>
+#include <opendaq/custom_log.h>
+#include <example_module/iir_filter_fb.h>
 
 BEGIN_NAMESPACE_EXAMPLE_MODULE
 
@@ -21,6 +22,9 @@ DictPtr<IString, IFunctionBlockType> ExampleModule::onGetAvailableFunctionBlockT
     const auto typeScaling = ExampleFBImpl::CreateType();
     types.set(typeScaling.getId(), typeScaling);
 
+    const auto typeIIR = IIRFilterFBImpl::CreateType();
+    types.set(typeIIR.getId(), typeIIR);
+
     return types;
 }
 
@@ -32,6 +36,12 @@ FunctionBlockPtr ExampleModule::onCreateFunctionBlock(const StringPtr& id,
     if (id == ExampleFBImpl::CreateType().getId())
     {
         FunctionBlockPtr fb = createWithImplementation<IFunctionBlock, ExampleFBImpl>(context, parent, localId);
+        return fb;
+    }
+
+    if (id == IIRFilterFBImpl::CreateType().getId())
+    {
+        FunctionBlockPtr fb = createWithImplementation<IFunctionBlock, IIRFilterFBImpl>(context, parent, localId);
         return fb;
     }
 

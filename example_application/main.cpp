@@ -1,26 +1,26 @@
 /**
- * Server application
+ * ExampleIIRFilter demo application
  */
 
-#include <iostream>
 #include <opendaq/opendaq.h>
+#include <iostream>
 
 using namespace daq;
 
 int main(int /*argc*/, const char* /*argv*/[])
 {
     const auto instance = Instance();
-    auto referenceDevice = instance.addDevice("daqref://device0");
-    auto renderer = instance.addFunctionBlock("RefFBModuleRenderer");
-    auto exampleModule = instance.addFunctionBlock("ExampleScalingModule");
-    exampleModule.setPropertyValue("Scale", 3);
-    exampleModule.setPropertyValue("Offset", -2);
+    const auto referenceDevice = instance.addDevice("daqref://device0");
+    const auto iirFilter = instance.addFunctionBlock("ExampleIIRFilter");
+    std::cout << "ExampleIIRFilter successfully added!";
 
-    exampleModule.getInputPorts()[0].connect(referenceDevice.getSignalsRecursive()[0]);
-    renderer.getInputPorts()[0].connect(referenceDevice.getSignalsRecursive()[0]);
-    renderer.getInputPorts()[1].connect(exampleModule.getSignals()[0]);
+    iirFilter.getInputPorts()[0].connect(referenceDevice.getSignalsRecursive()[0]);
 
-    std::cout << "Press \"enter\" to exit the application..." << std::endl;
+    const auto renderer = instance.addFunctionBlock("RefFBModuleRenderer");
+    renderer.getInputPorts()[0].connect(iirFilter.getSignals()[0]);
+    renderer.getInputPorts()[1].connect(referenceDevice.getSignalsRecursive()[0]);
+
+    std::cout << "ExampleIIRFilter is running.\n";
+    std::cout << "Press ENTER to exit the application..." << std::endl;
     std::cin.get();
-    return 0;
 }
